@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "[![Actions Status](https://github.com/bogdan-ho/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/bogdan-ho/frontend-project-12/actions)",
   "main": "index.js",
   "scripts": {
     "build": "npm run build --prefix frontend",
@@ -9,9 +9,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "cd frontend && npm ci"
   },
-  "author": "",
+  "author": "Bogdan Homoretsky",
   "license": "ISC",
   "dependencies": {
     "@hexlet/chat-server": "^1.1.6"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bogdan-ho/frontend-project-12.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bogdan-ho/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/bogdan-ho/frontend-project-12#readme"
 }

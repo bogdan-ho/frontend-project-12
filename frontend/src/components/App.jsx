@@ -1,15 +1,17 @@
 import {
   BrowserRouter, Routes, Route, Navigate, useLocation,
 } from 'react-router-dom';
-import { Navbar, Container } from 'react-bootstrap';
+import {
+  Navbar, Container, Link, Button,
+} from 'react-bootstrap';
 import { useMemo, useState } from 'react';
 
-import HomePage from './HomePage';
+import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import '../assets/application.scss';
 import AuthContext from '../contexts';
-// import useAuth from '../hooks';
+import useAuth from '../hooks';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -35,16 +37,16 @@ const PrivateRoute = ({ children }) => {
   );
 };
 
-// const AuthButton = () => {
-//   const auth = useAuth();
-//   const location = useLocation();
+const AuthButton = () => {
+  const auth = useAuth();
+  const location = useLocation();
 
-//   return (
-//     auth.loggedIn
-//       ? <Button onClick={auth.logOut}>Log out</Button>
-//       : <Button as={Link} to="/login" state={{ from: location }}>Log in</Button>
-//   );
-// };
+  return (
+    localStorage.getItem('user')
+      ? <Button onClick={auth.logOut}>Выйти</Button>
+      : <Button as={Link} to="/login" state={{ from: location }}>Войти</Button>
+  );
+};
 
 const App = () => (
   <AuthProvider>
@@ -52,6 +54,7 @@ const App = () => (
       <Navbar className="shadow-sm bg-white">
         <Container>
           <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+          <AuthButton />
         </Container>
       </Navbar>
 
@@ -60,7 +63,7 @@ const App = () => (
           path="/"
           element={(
             <PrivateRoute>
-              <HomePage />
+              <ChatPage />
             </PrivateRoute>
         )}
         />

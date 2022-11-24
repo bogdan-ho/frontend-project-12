@@ -1,10 +1,10 @@
 import {
-  BrowserRouter, Routes, Route, Navigate, useLocation,
+  BrowserRouter, Routes, Route, Navigate, useLocation, Link,
 } from 'react-router-dom';
 import {
-  Navbar, Container, Link, Button,
+  Navbar, Container, Button,
 } from 'react-bootstrap';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
@@ -48,30 +48,49 @@ const AuthButton = () => {
   );
 };
 
-const App = () => (
-  <AuthProvider>
-    <BrowserRouter>
-      <Navbar className="shadow-sm bg-white">
-        <Container>
-          <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-          <AuthButton />
-        </Container>
-      </Navbar>
+const App = () => {
+  useEffect(() => {
+    document.documentElement.classList.add('h-100');
+    document.getElementById('root').classList.add('h-100');
+    document.body.classList.add('h-100', 'bg-light');
 
-      <Routes>
-        <Route
-          path="/"
-          element={(
-            <PrivateRoute>
-              <ChatPage />
-            </PrivateRoute>
-        )}
-        />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
-  </AuthProvider>
-);
+    return () => {
+      document.documentElement.classList.remove('h-100');
+      document.getElementById('root').classList.remove('h-100');
+      document.body.classList.remove('h-100', 'bg-light');
+    };
+  });
+  return (
+    <div className="h-100">
+      <div className="h-100" id="chat">
+        <div className="d-flex flex-column h-100">
+          <AuthProvider>
+            <BrowserRouter>
+              <Navbar className="shadow-sm bg-white">
+                <Container>
+                  <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+                  <AuthButton />
+                </Container>
+              </Navbar>
+
+              <Routes>
+                <Route
+                  path="/"
+                  element={(
+                    <PrivateRoute>
+                      <ChatPage />
+                    </PrivateRoute>
+          )}
+                />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </BrowserRouter>
+          </AuthProvider>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default App;

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   Container, Col, Row, Card,
 } from 'react-bootstrap';

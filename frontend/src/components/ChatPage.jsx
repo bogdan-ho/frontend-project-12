@@ -1,13 +1,14 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   Button, Col, Container, Row,
 } from 'react-bootstrap';
 
 import { fetchData } from '../slices/channelsSlice';
-import useAuth from '../hooks';
+// import useAuth from '../hooks';
 import ChannelBox from './ChannelBox';
+import MessageBox from './MessageBox';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,9 @@ const ChatPage = () => {
                 </div>
                 <ChannelBox />
               </Col>
-              <Col className="p-0 h-100" />
+              <Col className="p-0 h-100">
+                <MessageBox />
+              </Col>
             </Row>
           </Container>
         </div>

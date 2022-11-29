@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import useAuth from '../hooks';
+import { useAuth } from '../hooks';
 import routes from '../routes';
 
 const schema = yup.object().shape({

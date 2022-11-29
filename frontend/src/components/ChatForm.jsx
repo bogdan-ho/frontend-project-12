@@ -1,13 +1,31 @@
 import { Formik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { useSocket } from '../hooks';
 
 const ChatForm = () => {
   const inputRef = useRef();
+  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const { username } = JSON.parse(localStorage.getItem('user'));
+  const socket = useSocket();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  // const sendMessage = (value, actions) => {
+  //   console.log('value', value);
+  //   // console.log('actions', actions);
+  //   socket.emit('newMessage', { body: [value.body], channelId: currentChannelId, username });
+  //   actions.resetForm();
+  // };
+
+  const handleFormSubmit = (value, actions) => {
+    // console.log('value', value);
+    socket.sendMessage(value, currentChannelId, username);
+    actions.resetForm();
+  };
 
   return (
     <div className="mt-auto px-5 py-3">
@@ -15,7 +33,7 @@ const ChatForm = () => {
         initialValues={{
           body: '',
         }}
-        onSubmit={console.log}
+        onSubmit={handleFormSubmit}
       >
         {({
           handleSubmit,

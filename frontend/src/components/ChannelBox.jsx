@@ -14,10 +14,10 @@ const ChannelBox = () => {
         <li key={id} className="nav-item w-100">
           {!removable
             ? (
-              <button type="button" className="w-100 rounded-0 text-start btn">
+              <Button variant={currentChannelId === id ? 'secondary' : 'light'} className="w-100 rounded-0 text-start text-truncate">
                 <span className="me-1">#</span>
                 {name}
-              </button>
+              </Button>
             )
             : (
               <Dropdown as={ButtonGroup} className="d-flex">

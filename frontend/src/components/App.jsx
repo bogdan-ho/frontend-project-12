@@ -5,13 +5,16 @@ import {
   Navbar, Container, Button,
 } from 'react-bootstrap';
 import { useEffect, useMemo, useState } from 'react';
+import axios from 'axios';
 
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import '../assets/application.scss';
-import AuthContext from '../contexts';
-import useAuth from '../hooks';
+import { AuthContext } from '../contexts';
+import { useAuth } from '../hooks';
+import SocketProvider from '../api';
+import routes from '../routes';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -50,6 +53,13 @@ const AuthButton = () => {
 
 const App = () => {
   useEffect(() => {
+    // register new user
+    axios.post(routes.SignUpPath(), { username: 'user1user1', password: 'user1user1' }).then((response) => {
+      console.log(response.data); // => { token: ..., username: 'newuser' }
+    });
+  }, []);
+
+  useEffect(() => {
     document.documentElement.classList.add('h-100');
     document.getElementById('root').classList.add('h-100');
     document.body.classList.add('h-100', 'bg-light');
@@ -59,34 +69,37 @@ const App = () => {
       document.getElementById('root').classList.remove('h-100');
       document.body.classList.remove('h-100', 'bg-light');
     };
-  });
+  }, []);
+
   return (
     <div className="h-100">
       <div className="h-100" id="chat">
         <div className="d-flex flex-column h-100">
-          <AuthProvider>
-            <BrowserRouter>
-              <Navbar className="shadow-sm bg-white">
-                <Container>
-                  <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-                  <AuthButton />
-                </Container>
-              </Navbar>
+          <SocketProvider>
+            <AuthProvider>
+              <BrowserRouter>
+                <Navbar className="shadow-sm bg-white">
+                  <Container>
+                    <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+                    <AuthButton />
+                  </Container>
+                </Navbar>
 
-              <Routes>
-                <Route
-                  path="/"
-                  element={(
-                    <PrivateRoute>
-                      <ChatPage />
-                    </PrivateRoute>
-          )}
-                />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </BrowserRouter>
-          </AuthProvider>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={(
+                      <PrivateRoute>
+                        <ChatPage />
+                      </PrivateRoute>
+                  )}
+                  />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+              </BrowserRouter>
+            </AuthProvider>
+          </SocketProvider>
         </div>
       </div>
     </div>

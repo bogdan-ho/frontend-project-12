@@ -5,12 +5,13 @@ import ChatForm from './ChatForm';
 import ChatMessages from './ChatMessages';
 
 const MessageBox = () => {
-  const messages = useSelector(messagesSelector.selectAll);
+  const allMessages = useSelector(messagesSelector.selectAll);
   const channels = useSelector(channelsSelector.selectAll);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const currentChannelName = channels
     .filter((ch) => ch.id === currentChannelId)
     .map((ch) => ch.name);
+  const messages = allMessages.filter((message) => message.channelId === currentChannelId);
 
   return (
     <div className="d-flex flex-column h-100">

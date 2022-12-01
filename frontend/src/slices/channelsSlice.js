@@ -11,7 +11,7 @@ export const fetchData = createAsyncThunk(
   async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const res = await axios.get(routes.DataPath(), { headers: { Authorization: `Bearer ${user.token}` } });
-    console.log('res is', res);
+    // console.log('res is', res);
     return res.data;
   },
 );

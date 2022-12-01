@@ -7,10 +7,10 @@ import {
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 
+import '../assets/application.scss';
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
-import '../assets/application.scss';
 import { AuthContext } from '../contexts';
 import { useAuth } from '../hooks';
 import SocketProvider from '../api';

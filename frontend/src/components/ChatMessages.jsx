@@ -5,7 +5,10 @@ import { useSocket } from '../hooks';
 import { selectors } from '../slices/messagesSlice';
 
 const ChatMessages = () => {
-  const messages = useSelector(selectors.selectAll);
+  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const allMessages = useSelector(selectors.selectAll);
+  const messages = allMessages.filter((message) => message.channelId === currentChannelId);
+
   const socket = useSocket();
   const dispatch = useDispatch();
 

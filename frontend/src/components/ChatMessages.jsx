@@ -17,7 +17,7 @@ const ChatMessages = () => {
     socket.subscribeOnMessages(dispatch);
 
     return () => {
-      socket.unsubscribeFromMessages();
+      socket.unsubscribeMessages();
     };
   }, []);
 

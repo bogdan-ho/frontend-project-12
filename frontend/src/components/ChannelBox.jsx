@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { ButtonGroup, Dropdown, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSocket } from '../hooks';
 import { actions, selectors } from '../slices/channelsSlice';
 
 const ChannelBox = () => {
@@ -10,6 +12,17 @@ const ChannelBox = () => {
   // console.log('currentChannelId is', currentChannelId);
   const dispatch = useDispatch();
   const setActiveChannel = (id) => dispatch(actions.setCurrentChannelId(id));
+  const socket = useSocket();
+
+  useEffect(() => {
+    socket.subscribeNewChannel(dispatch);
+    socket.subscribeRemoveChannel(dispatch);
+
+    return () => {
+      socket.unsubscribeNewChannel();
+      socket.unsubscribeRemoveChannel();
+    };
+  }, []);
 
   return (
     <ul className="nav flex-column nav-pills nav-fill px-2">
@@ -17,14 +30,14 @@ const ChannelBox = () => {
         <li key={id} className="nav-item w-100">
           {!removable
             ? (
-              <Button variant={currentChannelId === id ? 'secondary' : 'light'} className="w-100 rounded-0 text-start text-truncate" onClick={setActiveChannel(id)}>
+              <Button variant={currentChannelId === id ? 'secondary' : 'light'} className="w-100 rounded-0 text-start text-truncate" onClick={() => setActiveChannel(id)}>
                 <span className="me-1">#</span>
                 {name}
               </Button>
             )
             : (
               <Dropdown as={ButtonGroup} className="d-flex">
-                <Button variant={currentChannelId === id ? 'secondary' : 'light'} className="w-100 rounded-0 text-start text-truncate" onClick={setActiveChannel(id)}>
+                <Button variant={currentChannelId === id ? 'secondary' : 'light'} className="w-100 rounded-0 text-start text-truncate" onClick={() => setActiveChannel(id)}>
                   <span className="me-1">#</span>
                   {name}
                 </Button>

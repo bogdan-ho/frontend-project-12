@@ -4,6 +4,7 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../hooks';
 
+// сделать фокус на инпуте при переключении каналов
 const ChatForm = () => {
   const inputRef = useRef();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);

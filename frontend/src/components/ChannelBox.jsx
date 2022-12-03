@@ -3,6 +3,7 @@ import { ButtonGroup, Dropdown, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSocket } from '../hooks';
 import { actions, selectors } from '../slices/channelsSlice';
+import { setActiveModal } from '../slices/modalsSlice';
 
 const ChannelBox = () => {
   const channels = useSelector(selectors.selectAll);
@@ -17,13 +18,14 @@ const ChannelBox = () => {
   useEffect(() => {
     socket.subscribeNewChannel(dispatch);
     socket.subscribeRemoveChannel(dispatch);
+    socket.subscribeRenameChannel(dispatch);
 
     return () => {
       socket.unsubscribeNewChannel();
       socket.unsubscribeRemoveChannel();
+      socket.unsubscribeRenameChannel();
     };
   }, []);
-
   return (
     <ul className="nav flex-column nav-pills nav-fill px-2">
       {channels.map(({ id, name, removable }) => (
@@ -45,8 +47,8 @@ const ChannelBox = () => {
                   <span className="visually-hidden">Управление каналом</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#">Удалить</Dropdown.Item>
-                  <Dropdown.Item href="#">Переименовать</Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={() => dispatch(setActiveModal({ modalType: 'removeChannel', extra: { channelId: id } }))}>Удалить</Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={() => dispatch(setActiveModal({ modalType: 'renameChannel', extra: { channelId: id } }))}>Переименовать</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             )}

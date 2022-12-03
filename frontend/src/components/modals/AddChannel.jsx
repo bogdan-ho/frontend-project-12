@@ -1,9 +1,11 @@
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as yup from 'yup';
 import { useSocket } from '../../hooks';
 import { hideModal } from '../../slices/modalsSlice';
+import { selectors } from '../../slices/channelsSlice';
 
 const AddChannel = () => {
   const dispatch = useDispatch();
@@ -17,11 +19,16 @@ const AddChannel = () => {
   const socket = useSocket();
   const generateOnSubmit = (values) => {
     console.log('submit values', values);
-    // add channel via socket api
     socket.emitNewChannel(values.body);
+    handleClose();
   };
 
-  const formik = useFormik({ onSubmit: generateOnSubmit, initialValues: { body: '' } });
+  const channelsNames = useSelector(selectors.selectAll).map((ch) => ch.name);
+  const schema = yup.object().shape({
+    body: yup.string().required().notOneOf(channelsNames),
+  });
+
+  const formik = useFormik({ onSubmit: generateOnSubmit, validationSchema: schema, initialValues: { body: '' } });
 
   return (
     <Modal show centered onHide={handleClose}>
@@ -40,8 +47,9 @@ const AddChannel = () => {
               value={formik.values.body}
               name="body"
               className="mb-2"
+              isInvalid={formik.errors.body}
             />
-            <Form.Control.Feedback>Должно быть уникальным</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Должно быть уникальным</Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button variant="secondary" className="me-2" onClick={handleClose}>
                 Отменить

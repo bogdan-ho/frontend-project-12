@@ -11,11 +11,9 @@ import { setActiveModal } from '../slices/modalsSlice';
 import getModal from './modals';
 
 const renderModal = (modalInfo) => {
-  console.log('modalInfo', modalInfo);
   if (!modalInfo.type) return null;
 
   const ModalComponent = getModal(modalInfo.type);
-  console.log('ModalComponent', ModalComponent);
 
   return <ModalComponent />;
 };
@@ -23,7 +21,6 @@ const renderModal = (modalInfo) => {
 const ChatPage = () => {
   const dispatch = useDispatch();
   const modalInfo = useSelector((state) => state.modalInfo);
-  console.log('modalInfo', modalInfo);
 
   useEffect(() => {
     dispatch(fetchData());

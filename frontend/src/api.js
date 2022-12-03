@@ -48,6 +48,7 @@ const subscribeNewChannel = (dispatch) => {
   socket.on('newChannel', (payload) => {
     console.log('newChannel payload', payload); // { id: 6, name: "new channel", removable: true }
     dispatch(channelActions.addChannel(payload));
+    dispatch(channelActions.setCurrentChannelId(payload.id));
   });
 };
 
@@ -59,7 +60,7 @@ const unsubscribeNewChannel = () => {
 const subscribeRemoveChannel = (dispatch) => {
   socket.on('removeChannel', (payload) => {
     console.log('removeChannel payload', payload); // { id: 6, name: "new channel", removable: true }
-    dispatch(channelActions.removeChannel(payload));
+    dispatch(channelActions.removeChannel(payload.id));
   });
 };
 
@@ -73,6 +74,28 @@ const emitNewChannel = (name) => {
   socket.emit('newChannel', { name });
 };
 
+const emitRemoveChannel = (id) => {
+  console.log('emitRemoveChannel id', id);
+  socket.emit('removeChannel', { id });
+};
+
+const subscribeRenameChannel = (dispatch) => {
+  socket.on('renameChannel', (payload) => {
+    console.log('renameChannel payload', payload); // { id: 6, name: "new name channel", removable: true }
+    dispatch(channelActions.updateChannel({ id: [payload.id], changes: payload }));
+  });
+};
+
+const unsubscribeRenameChannel = () => {
+  socket.off('renameChannel');
+  console.log('unsubscribe from renameChannel');
+};
+
+const emitRenameChannel = (id, name) => {
+  console.log('renameChannel id name', id, name);
+  socket.emit('renameChannel', { id, name });
+};
+
 const SocketProvider = ({ children }) => (
   <SocketContext.Provider value={useMemo(() => ({
     subscribeOnMessages,
@@ -83,6 +106,10 @@ const SocketProvider = ({ children }) => (
     subscribeRemoveChannel,
     unsubscribeRemoveChannel,
     emitNewChannel,
+    emitRemoveChannel,
+    subscribeRenameChannel,
+    unsubscribeRenameChannel,
+    emitRenameChannel,
   }), [])}
   >
     {children}

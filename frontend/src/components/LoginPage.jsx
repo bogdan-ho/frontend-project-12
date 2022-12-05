@@ -18,7 +18,7 @@ const LoginPage = () => (
           </Card.Body>
           <Card.Footer className="p-4">
             <div className="text-center">
-              <span>Нет аккаунта?</span>
+              <span className="me-1">Нет аккаунта?</span>
               <a href="/signup">Регистрация</a>
             </div>
           </Card.Footer>

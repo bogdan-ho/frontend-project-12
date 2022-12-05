@@ -10,6 +10,7 @@ import axios from 'axios';
 import '../assets/application.scss';
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
+import SignUpPage from './SignUpPage';
 import NotFoundPage from './NotFoundPage';
 import { AuthContext } from '../contexts';
 import { useAuth } from '../hooks';
@@ -21,7 +22,8 @@ const AuthProvider = ({ children }) => {
 
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
-    localStorage.removeItem('userId');
+    console.log('log out');
+    localStorage.removeItem('user');
     setLoggedIn(false);
   };
 
@@ -46,7 +48,7 @@ const AuthButton = () => {
 
   return (
     localStorage.getItem('user')
-      ? <Button onClick={auth.logOut}>Выйти</Button>
+      ? <Button onClick={auth.logOut} as={Link} to="/login">Выйти</Button>
       : <Button as={Link} to="/login" state={{ from: location }}>Войти</Button>
   );
 };
@@ -95,6 +97,7 @@ const App = () => {
                   )}
                   />
                   <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignUpPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </BrowserRouter>

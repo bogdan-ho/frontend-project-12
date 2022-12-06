@@ -6,6 +6,7 @@ import routes from '../routes';
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState();
 
+// обработать ошибку когда выпадает 401 (Unauthorized)
 export const fetchData = createAsyncThunk(
   'tasks/fetchData',
   async () => {
@@ -34,6 +35,10 @@ const channelsSlice = createSlice({
         const { channels, currentChannelId } = action.payload;
         channelsAdapter.addMany(state, channels);
         state.currentChannelId = currentChannelId;
+      })
+      .addCase(fetchData.rejected, () => {
+        localStorage.clear();
+        window.location.reload();
       });
   },
 });

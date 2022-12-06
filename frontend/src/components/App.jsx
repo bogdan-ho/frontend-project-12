@@ -6,8 +6,10 @@ import {
 } from 'react-bootstrap';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 
 import '../assets/application.scss';
+import 'react-toastify/dist/ReactToastify.min.css';
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import SignUpPage from './SignUpPage';
@@ -97,6 +99,7 @@ const App = () => {
             </AuthProvider>
           </SocketProvider>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );

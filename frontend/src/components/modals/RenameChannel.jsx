@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { useSocket } from '../../hooks';
 import { hideModal } from '../../slices/modalsSlice';
@@ -24,6 +25,7 @@ const RenameChannel = () => {
     console.log('submit values', values);
     socket.emitRenameChannel(channelId, values.body);
     handleClose();
+    toast.success('Канал переименован');
   };
 
   const channelsNames = channels.map((ch) => ch.name);

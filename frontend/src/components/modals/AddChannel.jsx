@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { useSocket } from '../../hooks';
 import { hideModal } from '../../slices/modalsSlice';
@@ -21,6 +22,7 @@ const AddChannel = () => {
     console.log('submit values', values);
     socket.emitNewChannel(values.body);
     handleClose();
+    toast.success('Канал создан');
   };
 
   const channelsNames = useSelector(selectors.selectAll).map((ch) => ch.name);

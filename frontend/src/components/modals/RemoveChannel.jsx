@@ -1,5 +1,7 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
 import { useSocket } from '../../hooks';
 import { hideModal } from '../../slices/modalsSlice';
 import { actions } from '../../slices/channelsSlice';
@@ -17,6 +19,7 @@ const RemoveChannel = () => {
     socket.emitRemoveChannel(channelId);
     handleClose();
     dispatch(actions.setCurrentChannelId(mainChannelId));
+    toast.success('Канал удален');
   };
 
   return (

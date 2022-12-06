@@ -37,10 +37,10 @@ const unsubscribeMessages = () => {
   console.log('unsubscribe from messages');
 };
 
-const sendMessage = (value, currentChannelId, username) => {
-  console.log('value', value);
+const sendMessage = (body, currentChannelId, username) => {
+  console.log('body', body);
   // console.log('actions', actions);
-  socket.emit('newMessage', { body: [value.body], channelId: currentChannelId, username });
+  socket.emit('newMessage', { body, channelId: currentChannelId, username });
 };
 
 // channels

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
+import leoProfanity from 'leo-profanity';
 import { useSocket } from '../../hooks';
 import { hideModal } from '../../slices/modalsSlice';
 import { selectors } from '../../slices/channelsSlice';
@@ -21,8 +22,8 @@ const AddChannel = () => {
 
   const socket = useSocket();
   const generateOnSubmit = (values) => {
-    console.log('submit values', values);
-    socket.emitNewChannel(values.body);
+    const filteredName = leoProfanity.clean(values.body);
+    socket.emitNewChannel(filteredName);
     handleClose();
     toast.success(t('toasts.add'));
   };

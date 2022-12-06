@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useSocket } from '../../hooks';
@@ -24,8 +25,8 @@ const RenameChannel = () => {
 
   const socket = useSocket();
   const generateOnSubmit = (values) => {
-    console.log('submit values', values);
-    socket.emitRenameChannel(channelId, values.body);
+    const filteredName = leoProfanity.clean(values.body);
+    socket.emitRenameChannel(channelId, filteredName);
     handleClose();
     toast.success(t('toasts.rename'));
   };

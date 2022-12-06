@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import leoProfanity from 'leo-profanity';
 import { useEffect, useRef } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +18,8 @@ const ChatForm = () => {
   }, [currentChannelId]);
 
   const handleFormSubmit = (value, actions) => {
-    socket.sendMessage(value, currentChannelId, username);
+    const filteredBody = leoProfanity.clean(value.body);
+    socket.sendMessage(filteredBody, currentChannelId, username);
     actions.resetForm();
   };
 

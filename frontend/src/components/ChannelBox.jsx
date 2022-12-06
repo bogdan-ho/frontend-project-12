@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { ButtonGroup, Dropdown, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSocket } from '../hooks';
 import { actions, selectors } from '../slices/channelsSlice';
 import { setActiveModal } from '../slices/modalsSlice';
 
 const ChannelBox = () => {
+  const { t } = useTranslation();
   const channels = useSelector(selectors.selectAll);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
 
-  // console.log('channels is', channels);
-  // console.log('currentChannelId is', currentChannelId);
   const dispatch = useDispatch();
   const setActiveChannel = (id) => dispatch(actions.setCurrentChannelId(id));
   const socket = useSocket();
@@ -26,6 +26,7 @@ const ChannelBox = () => {
       socket.unsubscribeRenameChannel();
     };
   }, []);
+
   return (
     <ul className="nav flex-column nav-pills nav-fill px-2">
       {channels.map(({ id, name, removable }) => (
@@ -44,11 +45,11 @@ const ChannelBox = () => {
                   {name}
                 </Button>
                 <Dropdown.Toggle split id="dropdown-split-basic" variant={currentChannelId === id ? 'secondary' : 'light'}>
-                  <span className="visually-hidden">Управление каналом</span>
+                  <span className="visually-hidden">{t('chatPage.channelBox.channelManagment')}</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#" onClick={() => dispatch(setActiveModal({ modalType: 'removeChannel', extra: { channelId: id } }))}>Удалить</Dropdown.Item>
-                  <Dropdown.Item href="#" onClick={() => dispatch(setActiveModal({ modalType: 'renameChannel', extra: { channelId: id } }))}>Переименовать</Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={() => dispatch(setActiveModal({ modalType: 'removeChannel', extra: { channelId: id } }))}>{t('chatPage.channelBox.remove')}</Dropdown.Item>
+                  <Dropdown.Item href="#" onClick={() => dispatch(setActiveModal({ modalType: 'renameChannel', extra: { channelId: id } }))}>{t('chatPage.channelBox.rename')}</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             )}

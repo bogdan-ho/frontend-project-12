@@ -6,14 +6,9 @@ import * as yup from 'yup';
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks';
 import routes from '../routes';
-
-const schema = yup.object().shape({
-  username: yup.string().required('Обязательное поле').min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов'),
-  password: yup.string().required('Обязательное поле').min(6, 'Не менее 6 символов'),
-  confirmPassword: yup.string().required('Обязательное поле').oneOf([yup.ref('password')], 'Пароли должны совпадать'),
-});
 
 const SignUpForm = () => {
   const inputRef = useRef();
@@ -25,6 +20,14 @@ const SignUpForm = () => {
   console.log(`location is ${JSON.stringify(location)}`);
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
+
+  const schema = yup.object().shape({
+    username: yup.string().required(t('errors.requiredField')).min(3, t('errors.minMaxLength')).max(20, t('errors.minMaxLength')),
+    password: yup.string().required(t('errors.requiredField')).min(6, t('errors.minPasswordLength')),
+    confirmPassword: yup.string().required(t('errors.requiredField')).oneOf([yup.ref('password')], t('errors.passwordsMustMatch')),
+  });
 
   return (
     <Formik
@@ -48,7 +51,7 @@ const SignUpForm = () => {
             formikBag.setErrors({
               username: true,
               password: true,
-              confirmPassword: 'Такой пользователь уже существует',
+              confirmPassword: t('errors.personAlreadyExists'),
             });
             return;
           }
@@ -66,12 +69,12 @@ const SignUpForm = () => {
       }) => (
         <Form onSubmit={handleSubmit} className="w-50">
           <h1 className="text-center mb-4">
-            Регистрация
+            {t('signUpForm.title')}
           </h1>
           <Form.Group as={Col}>
             <FloatingLabel
               controlId="floatingInput"
-              label="Имя пользователя"
+              label={t('signUpForm.labels.username')}
               className="mb-3"
             >
               <Form.Control
@@ -93,7 +96,7 @@ const SignUpForm = () => {
             <FloatingLabel
               className="mb-3"
               controlId="floatingPassword"
-              label="Пароль"
+              label={t('signUpForm.labels.password')}
             >
               <Form.Control
                 type="password"
@@ -113,7 +116,7 @@ const SignUpForm = () => {
             <FloatingLabel
               className="mb-4"
               controlId="floatingPassword"
-              label="Подтвердите пароль"
+              label={t('signUpForm.labels.confirmPassword')}
             >
               <Form.Control
                 type="password"
@@ -131,7 +134,7 @@ const SignUpForm = () => {
           </Form.Group>
 
           <Button className="w-100" variant="outline-primary" type="submit">
-            Зарегистрироваться
+            {t('signUpForm.button')}
           </Button>
         </Form>
       )}

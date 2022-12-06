@@ -5,7 +5,7 @@ import {
   Navbar, Container, Button,
 } from 'react-bootstrap';
 import { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import '../assets/application.scss';
 import ChatPage from './ChatPage';
@@ -15,7 +15,6 @@ import NotFoundPage from './NotFoundPage';
 import { AuthContext } from '../contexts';
 import { useAuth } from '../hooks';
 import SocketProvider from '../api';
-import routes from '../routes';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -43,24 +42,18 @@ const PrivateRoute = ({ children }) => {
 };
 
 const AuthButton = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const location = useLocation();
 
   return (
     localStorage.getItem('user')
-      ? <Button onClick={auth.logOut} as={Link} to="/login">Выйти</Button>
-      : <Button as={Link} to="/login" state={{ from: location }}>Войти</Button>
+      ? <Button onClick={auth.logOut} as={Link} to="/login">{t('authButton.logOut')}</Button>
+      : <Button as={Link} to="/login" state={{ from: location }}>{t('authButton.logIn')}</Button>
   );
 };
 
 const App = () => {
-  useEffect(() => {
-    // register new user
-    axios.post(routes.SignUpPath(), { username: 'user1user1', password: 'user1user1' }).then((response) => {
-      console.log(response.data); // => { token: ..., username: 'newuser' }
-    });
-  }, []);
-
   useEffect(() => {
     document.documentElement.classList.add('h-100');
     document.getElementById('root').classList.add('h-100');

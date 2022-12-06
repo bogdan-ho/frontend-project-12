@@ -13,7 +13,7 @@ const SignUpPage = () => (
         <Card className="shadow-sm">
           <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
             <div>
-              <img src={avatar} className="rounded-circle" alt="human on mountain" />
+              <img src={avatar} className="rounded-circle" alt="register" />
             </div>
             <SignUpForm />
           </Card.Body>

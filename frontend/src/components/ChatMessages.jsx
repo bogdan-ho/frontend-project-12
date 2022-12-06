@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSocket } from '../hooks';
-// import { useEffect } from 'react';
 import { selectors } from '../slices/messagesSlice';
 
 const ChatMessages = () => {
@@ -12,7 +11,6 @@ const ChatMessages = () => {
   const socket = useSocket();
   const dispatch = useDispatch();
 
-  // socket.subscribeOnMessages(dispatch);
   useEffect(() => {
     socket.subscribeOnMessages(dispatch);
 

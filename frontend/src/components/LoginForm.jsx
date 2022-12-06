@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useAuth } from '../hooks';
 import routes from '../routes';
@@ -26,6 +27,7 @@ const LoginForm = () => {
   console.log(`location is ${JSON.stringify(location)}`);
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Formik
@@ -60,12 +62,12 @@ const LoginForm = () => {
       }) => (
         <Form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
           <h1 className="text-center mb-4">
-            Войти
+            {t('loginPage.form.title')}
           </h1>
           <Form.Group as={Col}>
             <FloatingLabel
               controlId="floatingInput"
-              label="Ваш ник"
+              label={t('loginPage.form.labels.username')}
               className="mb-3"
             >
               <Form.Control
@@ -83,7 +85,7 @@ const LoginForm = () => {
             <FloatingLabel
               className="mb-4"
               controlId="floatingPassword"
-              label="Пароль"
+              label={t('loginPage.form.labels.password')}
             >
               <Form.Control
                 type="password"
@@ -94,13 +96,13 @@ const LoginForm = () => {
                 isInvalid={authFailed}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                Неверные имя пользователя или пароль
+                {t('errors.wrongCredentials')}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
 
           <Button className="w-100 mb-3" variant="outline-primary" type="submit">
-            Войти
+            {t('loginPage.form.button')}
           </Button>
         </Form>
       )}

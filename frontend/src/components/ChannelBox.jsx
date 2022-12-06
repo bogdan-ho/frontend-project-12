@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { ButtonGroup, Dropdown, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';

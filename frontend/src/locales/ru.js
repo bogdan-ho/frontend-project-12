@@ -7,6 +7,7 @@ export default {
       passwordsMustMatch: 'Пароли должны совпадать',
       personAlreadyExists: 'Такой пользователь уже существует',
       wrongCredentials: 'Неверные имя пользователя или пароль',
+      notUnique: 'Должно быть уникальным',
     },
     signUpForm: {
       title: 'Регистрация',
@@ -52,6 +53,31 @@ export default {
       title: 'Страница не найдена',
       text: 'Но вы можете перейти ',
       link: 'на главную страницу',
+    },
+    modals: {
+      rename: {
+        title: 'Переименовать канал',
+        label: 'Имя канала',
+        closeButton: 'Отменить',
+        submitButton: 'Отправить',
+      },
+      remove: {
+        title: 'Удалить канал',
+        text: 'Уверены?',
+        closeButton: 'Отменить',
+        submitButton: 'Удалить',
+      },
+      add: {
+        title: 'Добавить канал',
+        label: 'Имя канала',
+        closeButton: 'Отменить',
+        submitButton: 'Отправить',
+      },
+    },
+    toasts: {
+      rename: 'Канал переименован',
+      remove: 'Канал удален',
+      add: 'Канал создан',
     },
   },
 };

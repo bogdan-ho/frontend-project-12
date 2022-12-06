@@ -1,6 +1,7 @@
 import {
   Container, Col, Row, Card,
 } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import avatar from '../assets/avatar.jpg';
 import LoginForm from './LoginForm';
@@ -22,7 +23,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span className="me-1">{t('loginPage.dontHaveAccount')}</span>
-                <a href="/signup">{t('loginPage.signUp')}</a>
+                <Link to="/signup">{t('loginPage.signUp')}</Link>
               </div>
             </Card.Footer>
           </Card>

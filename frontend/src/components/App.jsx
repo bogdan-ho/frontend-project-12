@@ -7,6 +7,7 @@ import {
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
+import { Provider, ErrorBoundary } from '@rollbar/react';
 
 import '../assets/application.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -55,6 +56,16 @@ const AuthButton = () => {
   );
 };
 
+const rollbarConfig = {
+  accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  enabled: true,
+  payload: {
+    environment: 'production',
+  },
+};
+
 const App = () => {
   useEffect(() => {
     document.documentElement.classList.add('h-100');
@@ -69,39 +80,43 @@ const App = () => {
   }, []);
 
   return (
-    <div className="h-100">
-      <div className="h-100" id="chat">
-        <div className="d-flex flex-column h-100">
-          <SocketProvider>
-            <AuthProvider>
-              <BrowserRouter>
-                <Navbar className="shadow-sm bg-white">
-                  <Container>
-                    <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-                    <AuthButton />
-                  </Container>
-                </Navbar>
+    <Provider config={rollbarConfig}>
+      <ErrorBoundary>
+        <SocketProvider>
+          <AuthProvider>
+            <div className="h-100">
+              <div className="h-100" id="chat">
+                <div className="d-flex flex-column h-100">
+                  <BrowserRouter>
+                    <Navbar className="shadow-sm bg-white">
+                      <Container>
+                        <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+                        <AuthButton />
+                      </Container>
+                    </Navbar>
 
-                <Routes>
-                  <Route
-                    path="/"
-                    element={(
-                      <PrivateRoute>
-                        <ChatPage />
-                      </PrivateRoute>
-                  )}
-                  />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/signup" element={<SignUpPage />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-              </BrowserRouter>
-            </AuthProvider>
-          </SocketProvider>
-        </div>
-        <ToastContainer />
-      </div>
-    </div>
+                    <Routes>
+                      <Route
+                        path="/"
+                        element={(
+                          <PrivateRoute>
+                            <ChatPage />
+                          </PrivateRoute>
+                      )}
+                      />
+                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/signup" element={<SignUpPage />} />
+                      <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                  </BrowserRouter>
+                </div>
+                <ToastContainer />
+              </div>
+            </div>
+          </AuthProvider>
+        </SocketProvider>
+      </ErrorBoundary>
+    </Provider>
   );
 };
 

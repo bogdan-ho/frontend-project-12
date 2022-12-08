@@ -77,7 +77,7 @@ export default {
     },
     toasts: {
       rename: 'Канал переименован',
-      remove: 'Канал удален',
+      remove: 'Канал удалён',
       add: 'Канал создан',
     },
   },

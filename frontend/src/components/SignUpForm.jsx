@@ -78,10 +78,12 @@ const SignUpForm = () => {
               controlId="floatingInput"
               label={t('signUpForm.labels.username')}
               className="mb-3"
+              htmlFor="username"
             >
               <Form.Control
                 type="text"
                 name="username"
+                id="username"
                 placeholder="name@example.com"
                 value={values.username}
                 onChange={handleChange}
@@ -99,10 +101,12 @@ const SignUpForm = () => {
               className="mb-3"
               controlId="floatingPassword"
               label={t('signUpForm.labels.password')}
+              htmlFor="password"
             >
               <Form.Control
                 type="password"
                 name="password"
+                id="password"
                 placeholder="Password"
                 value={values.password}
                 onChange={handleChange}
@@ -119,10 +123,12 @@ const SignUpForm = () => {
               className="mb-4"
               controlId="floatingPassword"
               label={t('signUpForm.labels.confirmPassword')}
+              htmlFor="confirmPassword"
             >
               <Form.Control
                 type="password"
                 name="confirmPassword"
+                id="confirmPassword"
                 placeholder="confirmPassword"
                 value={values.confirmPassword}
                 onChange={handleChange}

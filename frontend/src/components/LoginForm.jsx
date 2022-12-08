@@ -71,10 +71,12 @@ const LoginForm = () => {
               controlId="floatingInput"
               label={t('loginPage.form.labels.username')}
               className="mb-3"
+              htmlFor="username"
             >
               <Form.Control
                 type="text"
                 name="username"
+                id="username"
                 placeholder="name@example.com"
                 value={values.username}
                 onChange={handleChange}
@@ -88,10 +90,12 @@ const LoginForm = () => {
               className="mb-4"
               controlId="floatingPassword"
               label={t('loginPage.form.labels.password')}
+              htmlFor="password"
             >
               <Form.Control
                 type="password"
                 name="password"
+                id="password"
                 placeholder="Password"
                 value={values.password}
                 onChange={handleChange}

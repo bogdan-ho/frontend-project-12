@@ -4,7 +4,7 @@ import {
 import {
   Navbar, Container, Button,
 } from 'react-bootstrap';
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
 import { Provider, ErrorBoundary } from '@rollbar/react';

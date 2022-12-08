@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 // import { actions as channelsActions } from './slices/channelsSlice';
 import { actions as messagesActions } from './slices/messagesSlice';
 import { actions as channelActions } from './slices/channelsSlice';

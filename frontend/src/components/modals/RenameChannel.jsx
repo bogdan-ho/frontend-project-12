@@ -32,8 +32,11 @@ const RenameChannel = () => {
   };
 
   const channelsNames = channels.map((ch) => ch.name);
+  console.log('errors.requiredField', t('errors.requiredField'));
+  console.log('errors.requiredField', true);
   const schema = yup.object().shape({
-    body: yup.string().required().notOneOf(channelsNames),
+    body: yup.string().required(t('errors.requiredField')).min(3, t('errors.minMaxLength')).max(20, t('errors.minMaxLength'))
+      .notOneOf(channelsNames, t('errors.notUnique')),
   });
 
   const formik = useFormik({
@@ -61,7 +64,7 @@ const RenameChannel = () => {
               className="mb-2"
               isInvalid={formik.errors.body}
             />
-            <Form.Control.Feedback type="invalid">{t('errors.notUnique')}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button variant="secondary" className="me-2" onClick={handleClose}>
                 {t('modals.rename.closeButton')}

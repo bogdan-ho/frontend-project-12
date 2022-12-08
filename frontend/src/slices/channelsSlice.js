@@ -6,14 +6,17 @@ import routes from '../routes';
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState();
 
-// обработать ошибку когда выпадает 401 (Unauthorized)
 export const fetchData = createAsyncThunk(
   'tasks/fetchData',
   async () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const res = await axios.get(routes.DataPath(), { headers: { Authorization: `Bearer ${user.token}` } });
-    // console.log('res is', res);
-    return res.data;
+    try {
+      const res = await axios.get(routes.DataPath(), { headers: { Authorization: `Bearer ${user.token}` } });
+      // console.log('res is', res);
+      return res.data;
+    } catch (err) {
+      throw new Error(err);
+    }
   },
 );
 

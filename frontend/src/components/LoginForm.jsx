@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useAuth } from '../hooks';
 import routes from '../routes';
@@ -51,6 +52,7 @@ const LoginForm = () => {
             inputRef.current.select();
             return;
           }
+          toast.error(t('errors.networkError'));
           throw err;
         }
       }}

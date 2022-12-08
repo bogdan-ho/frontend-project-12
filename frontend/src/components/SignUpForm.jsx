@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks';
@@ -55,6 +56,7 @@ const SignUpForm = () => {
             });
             return;
           }
+          toast.error(t('errors.networkError'));
           throw err;
         }
       }}

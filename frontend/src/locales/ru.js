@@ -8,6 +8,7 @@ export default {
       personAlreadyExists: 'Такой пользователь уже существует',
       wrongCredentials: 'Неверные имя пользователя или пароль',
       notUnique: 'Должно быть уникальным',
+      networkError: 'Ошибка соединения',
     },
     signUpForm: {
       title: 'Регистрация',

@@ -4,6 +4,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/bogdan-ho/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/bogdan-ho/frontend-project-12/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/03709e99cc75fb908a8e/maintainability)](https://codeclimate.com/github/bogdan-ho/frontend-project-12/maintainability)
+[![CI](https://github.com/bogdan-ho/frontend-project-12/actions/workflows/node%20CI.yml/badge.svg?branch=main)](https://github.com/bogdan-ho/frontend-project-12/actions/workflows/node%20CI.yml)
 
 
 ## About

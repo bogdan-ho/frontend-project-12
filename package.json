@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "0.1.0",
-  "description": "[![Actions Status](https://github.com/bogdan-ho/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/bogdan-ho/frontend-project-12/actions)",
+  "description": "Real-time chat app (Slack clone)",
   "main": "frontend/src/index.js",
   "scripts": {
     "build": "npm run build --prefix frontend",

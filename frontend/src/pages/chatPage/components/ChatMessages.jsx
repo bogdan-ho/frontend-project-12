@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSocket } from '../hooks';
-import { selectors } from '../slices/messagesSlice';
+import { useSocket } from '../../../hooks';
+import { selectors } from '../../../slices/messagesSlice';
 
 const ChatMessages = () => {
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);

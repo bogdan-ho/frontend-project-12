@@ -8,8 +8,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../hooks';
-import routes from '../routes';
+
+import { useAuth } from '../../../hooks';
+import routes from '../../../routes';
 
 const SignUpForm = () => {
   const inputRef = useRef();

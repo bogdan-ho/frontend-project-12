@@ -3,20 +3,18 @@ import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import { useSocket } from '../../hooks';
-import { hideModal } from '../../slices/modalsSlice';
-import { selectors } from '../../slices/channelsSlice';
+import leoProfanity from 'leo-profanity';
 
-const RenameChannel = () => {
+import { useSocket } from '../../../../hooks';
+import { hideModal } from '../../../../slices/modalsSlice';
+import { selectors } from '../../../../slices/channelsSlice';
+
+const AddChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleClose = () => dispatch(hideModal());
-  const { channelId } = useSelector((state) => state.modalInfo.extra);
-  const channels = useSelector(selectors.selectAll);
-  const channelName = channels.find((channel) => channel.id === channelId).name;
 
   const inputRef = useRef();
   useEffect(() => {
@@ -26,34 +24,28 @@ const RenameChannel = () => {
   const socket = useSocket();
   const generateOnSubmit = (values) => {
     const filteredName = leoProfanity.clean(values.body);
-    socket.emitRenameChannel(channelId, filteredName);
+    socket.emitNewChannel(filteredName);
     handleClose();
-    toast.success(t('toasts.rename'));
+    toast.success(t('toasts.add'));
   };
 
-  const channelsNames = channels.map((ch) => ch.name);
-  console.log('errors.requiredField', t('errors.requiredField'));
-  console.log('errors.requiredField', true);
+  const channelsNames = useSelector(selectors.selectAll).map((ch) => ch.name);
   const schema = yup.object().shape({
     body: yup.string().required(t('errors.requiredField')).min(3, t('errors.minMaxLength')).max(20, t('errors.minMaxLength'))
       .notOneOf(channelsNames, t('errors.notUnique')),
   });
 
-  const formik = useFormik({
-    onSubmit: generateOnSubmit,
-    validationSchema: schema,
-    initialValues: { body: channelName },
-  });
+  const formik = useFormik({ onSubmit: generateOnSubmit, validationSchema: schema, initialValues: { body: '' } });
 
   return (
     <Modal show centered onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modals.rename.title')}</Modal.Title>
+        <Modal.Title>{t('modals.add.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
           <Form.Group controlId="formName">
-            <Form.Label className="visually-hidden">{t('modals.rename.label')}</Form.Label>
+            <Form.Label className="visually-hidden">{t('modals.add.label')}</Form.Label>
             <Form.Control
               required
               ref={inputRef}
@@ -67,10 +59,10 @@ const RenameChannel = () => {
             <Form.Control.Feedback type="invalid">{formik.errors.body}</Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button variant="secondary" className="me-2" onClick={handleClose}>
-                {t('modals.rename.closeButton')}
+                {t('modals.add.closeButton')}
               </Button>
               <Button variant="primary" type="submit">
-                {t('modals.rename.submitButton')}
+                {t('modals.add.submitButton')}
               </Button>
             </div>
           </Form.Group>
@@ -80,4 +72,4 @@ const RenameChannel = () => {
   );
 };
 
-export default RenameChannel;
+export default AddChannel;

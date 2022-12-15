@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { selectors as messagesSelector } from '../slices/messagesSlice';
-import { selectors as channelsSelector } from '../slices/channelsSlice';
+
+import { selectors as messagesSelector } from '../../../slices/messagesSlice';
+import { selectors as channelsSelector } from '../../../slices/channelsSlice';
 import ChatForm from './ChatForm';
 import ChatMessages from './ChatMessages';
 

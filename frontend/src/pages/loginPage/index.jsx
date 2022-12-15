@@ -4,8 +4,9 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import avatar from '../assets/avatar.jpg';
-import LoginForm from './LoginForm';
+
+import avatar from '../../assets/avatar.jpg';
+import LoginForm from './components/LoginForm';
 
 const LoginPage = () => {
   const { t } = useTranslation();

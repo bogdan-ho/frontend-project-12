@@ -8,8 +8,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useAuth } from '../hooks';
-import routes from '../routes';
+import { useAuth } from '../../../hooks';
+import routes from '../../../routes';
 
 const schema = yup.object().shape({
   username: yup.string().required(),

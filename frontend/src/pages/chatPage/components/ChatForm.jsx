@@ -4,7 +4,8 @@ import React, { useEffect, useRef } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useSocket } from '../hooks';
+
+import { useSocket } from '../../../hooks';
 
 const ChatForm = () => {
   const { t } = useTranslation();

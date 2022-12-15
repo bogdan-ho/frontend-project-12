@@ -11,10 +11,10 @@ import { Provider, ErrorBoundary } from '@rollbar/react';
 
 import '../assets/application.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
-import ChatPage from './ChatPage';
-import LoginPage from './LoginPage';
-import SignUpPage from './SignUpPage';
-import NotFoundPage from './NotFoundPage';
+import ChatPage from './chatPage';
+import LoginPage from './loginPage';
+import SignUpPage from './signUpPage';
+import NotFoundPage from './notFoundPage';
 import { AuthContext } from '../contexts';
 import { useAuth } from '../hooks';
 import SocketProvider from '../api';

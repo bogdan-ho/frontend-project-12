@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import image from '../assets/404.svg';
+
+import image from '../../assets/404.svg';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();

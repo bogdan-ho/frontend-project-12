@@ -3,9 +3,10 @@ import React, { useEffect } from 'react';
 import { ButtonGroup, Dropdown, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSocket } from '../hooks';
-import { actions, selectors } from '../slices/channelsSlice';
-import { setActiveModal } from '../slices/modalsSlice';
+
+import { useSocket } from '../../../hooks';
+import { actions, selectors } from '../../../slices/channelsSlice';
+import { setActiveModal } from '../../../slices/modalsSlice';
 
 const ChannelBox = () => {
   const { t } = useTranslation();

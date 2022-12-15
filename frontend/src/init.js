@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import React from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
-import App from './components/App';
+import App from './pages/App';
 import resources from './locales/index.js';
 
 const init = async () => {

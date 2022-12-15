@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import { useSocket } from '../../hooks';
-import { hideModal } from '../../slices/modalsSlice';
-import { actions } from '../../slices/channelsSlice';
+import { useSocket } from '../../../../hooks';
+import { hideModal } from '../../../../slices/modalsSlice';
+import { actions } from '../../../../slices/channelsSlice';
 
 const RemoveChannel = () => {
   const { t } = useTranslation();

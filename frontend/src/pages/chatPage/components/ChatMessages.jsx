@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSocket } from '../../../hooks';
+import { useChatApi } from '../../../hooks';
 import { selectors } from '../../../slices/messagesSlice';
 
 const ChatMessages = () => {
@@ -9,14 +9,14 @@ const ChatMessages = () => {
   const allMessages = useSelector(selectors.selectAll);
   const messages = allMessages.filter((message) => message.channelId === currentChannelId);
 
-  const socket = useSocket();
+  const chatApi = useChatApi();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    socket.subscribeOnMessages(dispatch);
+    chatApi.subscribeOnMessages(dispatch);
 
     return () => {
-      socket.unsubscribeMessages();
+      chatApi.unsubscribeMessages();
     };
   }, []);
 

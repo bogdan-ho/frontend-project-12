@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import { useSocket } from '../../../../hooks';
+import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
 import { actions } from '../../../../slices/channelsSlice';
 
@@ -15,11 +15,11 @@ const RemoveChannel = () => {
   const { channelId } = useSelector((state) => state.modalInfo.extra);
   const mainChannelId = 1;
 
-  const socket = useSocket();
+  const chatApi = useChatApi();
   const generateOnSubmit = (event) => {
     event.preventDefault();
     console.log('submit channelId', channelId);
-    socket.emitRemoveChannel(channelId);
+    chatApi.removeChannel(channelId);
     handleClose();
     dispatch(actions.setCurrentChannelId(mainChannelId));
     toast.success(t('toasts.remove'));

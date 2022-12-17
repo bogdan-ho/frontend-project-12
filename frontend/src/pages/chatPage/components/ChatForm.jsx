@@ -5,14 +5,14 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { useSocket } from '../../../hooks';
+import { useChatApi } from '../../../hooks';
 
 const ChatForm = () => {
   const { t } = useTranslation();
   const inputRef = useRef();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const { username } = JSON.parse(localStorage.getItem('user'));
-  const socket = useSocket();
+  const chatApi = useChatApi();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -20,7 +20,7 @@ const ChatForm = () => {
 
   const handleFormSubmit = (value, actions) => {
     const filteredBody = leoProfanity.clean(value.body);
-    socket.sendMessage(filteredBody, currentChannelId, username);
+    chatApi.sendMessage(filteredBody, currentChannelId, username);
     actions.resetForm();
   };
 

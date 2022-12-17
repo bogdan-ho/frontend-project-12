@@ -4,7 +4,7 @@ import { ButtonGroup, Dropdown, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useSocket } from '../../../hooks';
+import { useChatApi } from '../../../hooks';
 import { actions, selectors } from '../../../slices/channelsSlice';
 import { setActiveModal } from '../../../slices/modalsSlice';
 
@@ -15,17 +15,17 @@ const ChannelBox = () => {
 
   const dispatch = useDispatch();
   const setActiveChannel = (id) => dispatch(actions.setCurrentChannelId(id));
-  const socket = useSocket();
+  const chatApi = useChatApi();
 
   useEffect(() => {
-    socket.subscribeNewChannel(dispatch);
-    socket.subscribeRemoveChannel(dispatch);
-    socket.subscribeRenameChannel(dispatch);
+    chatApi.subscribeNewChannel(dispatch);
+    chatApi.subscribeRemoveChannel(dispatch);
+    chatApi.subscribeRenameChannel(dispatch);
 
     return () => {
-      socket.unsubscribeNewChannel();
-      socket.unsubscribeRemoveChannel();
-      socket.unsubscribeRenameChannel();
+      chatApi.unsubscribeNewChannel();
+      chatApi.unsubscribeRemoveChannel();
+      chatApi.unsubscribeRenameChannel();
     };
   }, []);
 

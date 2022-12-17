@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import leoProfanity from 'leo-profanity';
 
-import { useSocket } from '../../../../hooks';
+import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
 import { selectors } from '../../../../slices/channelsSlice';
 
@@ -21,10 +21,10 @@ const AddChannel = () => {
     inputRef.current.focus();
   }, []);
 
-  const socket = useSocket();
+  const chatApi = useChatApi();
   const generateOnSubmit = (values) => {
     const filteredName = leoProfanity.clean(values.body);
-    socket.emitNewChannel(filteredName);
+    chatApi.createNewChannel(filteredName);
     handleClose();
     toast.success(t('toasts.add'));
   };

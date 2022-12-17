@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter, Routes, Route, Link,
+} from 'react-router-dom';
 import { Navbar, Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 
@@ -38,7 +40,7 @@ const App = () => {
                 <BrowserRouter>
                   <Navbar className="shadow-sm bg-white">
                     <Container>
-                      <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+                      <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
                       <AuthButton />
                     </Container>
                   </Navbar>

@@ -1,13 +1,7 @@
-import {
-  BrowserRouter, Routes, Route, Navigate, useLocation, Link,
-} from 'react-router-dom';
-import {
-  Navbar, Container, Button,
-} from 'react-bootstrap';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Navbar, Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
-import { Provider, ErrorBoundary } from '@rollbar/react';
 
 import '../assets/application.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -15,56 +9,11 @@ import ChatPage from './chatPage';
 import LoginPage from './loginPage';
 import SignUpPage from './signUpPage';
 import NotFoundPage from './notFoundPage';
-import { AuthContext } from '../contexts';
-import { useAuth } from '../hooks';
 import SocketProvider from '../api';
-
-const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const logIn = () => setLoggedIn(true);
-  const logOut = () => {
-    console.log('log out');
-    localStorage.removeItem('user');
-    setLoggedIn(false);
-  };
-
-  return (
-    <AuthContext.Provider value={useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn])}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-const PrivateRoute = ({ children }) => {
-  const location = useLocation();
-  console.log(`localStorage.getItem('user') is ${JSON.stringify(localStorage.getItem('user'))}`);
-  return (
-    localStorage.getItem('user') ? children : <Navigate to="/login" state={{ from: location }} />
-  );
-};
-
-const AuthButton = () => {
-  const { t } = useTranslation();
-  const auth = useAuth();
-  const location = useLocation();
-
-  return (
-    localStorage.getItem('user')
-      ? <Button onClick={auth.logOut} as={Link} to="/login">{t('authButton.logOut')}</Button>
-      : <Button as={Link} to="/login" state={{ from: location }}>{t('authButton.logIn')}</Button>
-  );
-};
-
-const rollbarConfig = {
-  accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  enabled: true,
-  payload: {
-    environment: 'production',
-  },
-};
+import AuthProvider from './helpers/AuthProvider';
+import PrivateRoute from './helpers/PrivateRoute';
+import AuthButton from './helpers/AuthButton';
+import RollbarProvider from './helpers/RollbarProvider';
 
 const App = () => {
   useEffect(() => {
@@ -80,43 +29,41 @@ const App = () => {
   }, []);
 
   return (
-    <Provider config={rollbarConfig}>
-      <ErrorBoundary>
-        <SocketProvider>
-          <AuthProvider>
-            <div className="h-100">
-              <div className="h-100" id="chat">
-                <div className="d-flex flex-column h-100">
-                  <BrowserRouter>
-                    <Navbar className="shadow-sm bg-white">
-                      <Container>
-                        <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-                        <AuthButton />
-                      </Container>
-                    </Navbar>
+    <RollbarProvider>
+      <SocketProvider>
+        <AuthProvider>
+          <div className="h-100">
+            <div className="h-100" id="chat">
+              <div className="d-flex flex-column h-100">
+                <BrowserRouter>
+                  <Navbar className="shadow-sm bg-white">
+                    <Container>
+                      <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+                      <AuthButton />
+                    </Container>
+                  </Navbar>
 
-                    <Routes>
-                      <Route
-                        path="/"
-                        element={(
-                          <PrivateRoute>
-                            <ChatPage />
-                          </PrivateRoute>
+                  <Routes>
+                    <Route
+                      path="/"
+                      element={(
+                        <PrivateRoute>
+                          <ChatPage />
+                        </PrivateRoute>
                       )}
-                      />
-                      <Route path="/login" element={<LoginPage />} />
-                      <Route path="/signup" element={<SignUpPage />} />
-                      <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                  </BrowserRouter>
-                </div>
-                <ToastContainer />
+                    />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignUpPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                  </Routes>
+                </BrowserRouter>
               </div>
+              <ToastContainer />
             </div>
-          </AuthProvider>
-        </SocketProvider>
-      </ErrorBoundary>
-    </Provider>
+          </div>
+        </AuthProvider>
+      </SocketProvider>
+    </RollbarProvider>
   );
 };
 

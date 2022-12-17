@@ -25,7 +25,6 @@ const LoginForm = () => {
   }, []);
   const auth = useAuth();
   const location = useLocation();
-  console.log(`location is ${JSON.stringify(location)}`);
 
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -41,12 +40,10 @@ const LoginForm = () => {
         setAuthFailed(false);
         try {
           const res = await axios.post(routes.loginPath(), values);
-          console.log(`res is ${JSON.stringify(res)}`);
           window.localStorage.setItem('user', JSON.stringify(res.data));
           navigate(location.state ? location.state.from.pathname : '/');
           auth.logIn();
         } catch (err) {
-          console.log(`err is ${JSON.stringify(err)}`);
           if (err.isAxiosError && err.response.status === 401) {
             setAuthFailed(true);
             inputRef.current.select();

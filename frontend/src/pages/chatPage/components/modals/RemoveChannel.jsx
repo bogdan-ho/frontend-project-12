@@ -18,7 +18,6 @@ const RemoveChannel = () => {
   const chatApi = useChatApi();
   const generateOnSubmit = (event) => {
     event.preventDefault();
-    console.log('submit channelId', channelId);
     chatApi.removeChannel(channelId);
     handleClose();
     dispatch(actions.setCurrentChannelId(mainChannelId));

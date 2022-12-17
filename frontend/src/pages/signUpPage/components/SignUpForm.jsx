@@ -19,7 +19,6 @@ const SignUpForm = () => {
   }, []);
   const auth = useAuth();
   const location = useLocation();
-  console.log(`location is ${JSON.stringify(location)}`);
 
   const navigate = useNavigate();
 
@@ -42,12 +41,10 @@ const SignUpForm = () => {
       onSubmit={async ({ username, password }, formikBag) => {
         try {
           const res = await axios.post(routes.SignUpPath(), { username, password });
-          console.log(`res is ${JSON.stringify(res)}`);
           window.localStorage.setItem('user', JSON.stringify(res.data));
           navigate(location.state ? location.state.from.pathname : '/');
           auth.logIn();
         } catch (err) {
-          console.log(`err is ${JSON.stringify(err)}`);
           if (err.isAxiosError && err.response.status === 409) {
             inputRef.current.select();
             formikBag.setErrors({

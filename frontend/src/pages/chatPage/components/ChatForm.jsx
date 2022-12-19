@@ -6,11 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { useChatApi } from '../../../hooks';
+import { selectCurrentChannelId } from '../../../slices/selectors';
 
 const ChatForm = () => {
   const { t } = useTranslation();
   const inputRef = useRef();
-  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+
+  const currentChannelId = useSelector(selectCurrentChannelId);
   const { username } = JSON.parse(localStorage.getItem('user'));
   const chatApi = useChatApi();
 

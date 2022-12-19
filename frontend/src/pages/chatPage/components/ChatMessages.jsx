@@ -2,11 +2,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useChatApi } from '../../../hooks';
-import { selectors } from '../../../slices/messagesSlice';
+import { messagesSelectors, selectCurrentChannelId } from '../../../slices/selectors';
 
 const ChatMessages = () => {
-  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
-  const allMessages = useSelector(selectors.selectAll);
+  const currentChannelId = useSelector(selectCurrentChannelId);
+  const allMessages = useSelector(messagesSelectors.selectAll);
+
   const messages = allMessages.filter((message) => message.channelId === currentChannelId);
 
   const chatApi = useChatApi();

@@ -11,6 +11,7 @@ import { fetchData } from '../../slices/channelsSlice';
 import ChannelBox from './components/ChannelBox';
 import MessageBox from './components/MessageBox';
 import getModal from './components/modals';
+import { selectModalInfo } from '../../slices/selectors';
 
 const renderModal = (modalInfo) => {
   if (!modalInfo.type) return null;
@@ -23,7 +24,7 @@ const renderModal = (modalInfo) => {
 const ChatPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const modalInfo = useSelector((state) => state.modalInfo);
+  const modalInfo = useSelector(selectModalInfo);
 
   useEffect(() => {
     dispatch(fetchData());

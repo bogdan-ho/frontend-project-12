@@ -5,13 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useChatApi } from '../../../hooks';
-import { actions, selectors } from '../../../slices/channelsSlice';
+import { actions } from '../../../slices/channelsSlice';
 import { setActiveModal } from '../../../slices/modalsSlice';
+import { channelsSelectors, selectCurrentChannelId } from '../../../slices/selectors';
 
 const ChannelBox = () => {
   const { t } = useTranslation();
-  const channels = useSelector(selectors.selectAll);
-  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+
+  const channels = useSelector(channelsSelectors.selectAll);
+  const currentChannelId = useSelector(selectCurrentChannelId);
 
   const dispatch = useDispatch();
   const setActiveChannel = (id) => dispatch(actions.setCurrentChannelId(id));

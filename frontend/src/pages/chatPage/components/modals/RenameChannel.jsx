@@ -9,14 +9,15 @@ import * as yup from 'yup';
 
 import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
-import { selectors } from '../../../../slices/channelsSlice';
+import { channelsSelectors, selectModalInfoExtra } from '../../../../slices/selectors';
 
 const RenameChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleClose = () => dispatch(hideModal());
-  const { channelId } = useSelector((state) => state.modalInfo.extra);
-  const channels = useSelector(selectors.selectAll);
+
+  const { channelId } = useSelector(selectModalInfoExtra);
+  const channels = useSelector(channelsSelectors.selectAll);
   const channelName = channels.find((channel) => channel.id === channelId).name;
 
   const inputRef = useRef();

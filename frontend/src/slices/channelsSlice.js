@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice, createEntityAdapter, createAsyncThunk,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 import routes from '../routes';
 
-const channelsAdapter = createEntityAdapter();
+export const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState();
 
 export const fetchData = createAsyncThunk(
@@ -45,6 +47,5 @@ const channelsSlice = createSlice({
   },
 });
 
-export const selectors = channelsAdapter.getSelectors((state) => state.channels);
 export const { actions } = channelsSlice;
 export default channelsSlice.reducer;

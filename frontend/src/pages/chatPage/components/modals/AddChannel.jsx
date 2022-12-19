@@ -9,7 +9,7 @@ import leoProfanity from 'leo-profanity';
 
 import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
-import { selectors } from '../../../../slices/channelsSlice';
+import { channelsSelectors } from '../../../../slices/selectors';
 
 const AddChannel = () => {
   const { t } = useTranslation();
@@ -29,7 +29,7 @@ const AddChannel = () => {
     toast.success(t('toasts.add'));
   };
 
-  const channelsNames = useSelector(selectors.selectAll).map((ch) => ch.name);
+  const channelsNames = useSelector(channelsSelectors.selectAll).map((ch) => ch.name);
   const schema = yup.object().shape({
     body: yup.string().required(t('errors.requiredField')).min(3, t('errors.minMaxLength')).max(20, t('errors.minMaxLength'))
       .notOneOf(channelsNames, t('errors.notUnique')),

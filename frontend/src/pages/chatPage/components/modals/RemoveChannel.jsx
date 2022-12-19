@@ -7,12 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
 import { actions } from '../../../../slices/channelsSlice';
+import { selectModalInfoExtra } from '../../../../slices/selectors';
 
 const RemoveChannel = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handleClose = () => dispatch(hideModal());
-  const { channelId } = useSelector((state) => state.modalInfo.extra);
+
+  const { channelId } = useSelector(selectModalInfoExtra);
   const mainChannelId = 1;
 
   const chatApi = useChatApi();

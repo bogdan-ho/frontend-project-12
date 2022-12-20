@@ -16,10 +16,10 @@ const LoginPage = () => {
       <Row className="justify-content-center align-content-center h-100">
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
-            <Card.Body className="row p-5">
-              <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
+            <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+              <div>
                 <img src={avatar} className="rounded-circle" alt="login" />
-              </Col>
+              </div>
               <LoginForm />
             </Card.Body>
             <Card.Footer className="p-4">

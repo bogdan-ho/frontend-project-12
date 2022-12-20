@@ -2,13 +2,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useChatApi } from '../../../hooks';
-import { messagesSelectors, selectCurrentChannelId } from '../../../slices/selectors';
+import { getCurrentChannelMessages } from '../../../slices/selectors';
 
 const ChatMessages = () => {
-  const currentChannelId = useSelector(selectCurrentChannelId);
-  const allMessages = useSelector(messagesSelectors.selectAll);
-
-  const messages = allMessages.filter((message) => message.channelId === currentChannelId);
+  const currentChannelMessages = useSelector(getCurrentChannelMessages);
 
   const chatApi = useChatApi();
   const dispatch = useDispatch();
@@ -23,8 +20,8 @@ const ChatMessages = () => {
 
   return (
     <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-      {messages.length > 0
-        ? messages.map((message) => (
+      {currentChannelMessages.length > 0
+        ? currentChannelMessages.map((message) => (
           <div key={`${message.body}${message.id}`} className="text-break mb-2">
             <b>{message.username}</b>
             {`: ${message.body}`}

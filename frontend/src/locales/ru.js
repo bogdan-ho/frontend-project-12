@@ -19,6 +19,10 @@ export default {
         confirmPassword: 'Подтвердите пароль',
       },
     },
+    signUpPage: {
+      haveAccount: 'Уже есть аккаунт?',
+      logIn: 'Войти',
+    },
     loginPage: {
       dontHaveAccount: 'Нет аккаунта?',
       signUp: 'Регистрация',

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
 import { actions } from '../../../../slices/channelsSlice';
-import { selectModalInfoExtra } from '../../../../slices/selectors';
+import { selectModalInfoExtra, selectCurrentChannelId } from '../../../../slices/selectors';
 
 const RemoveChannel = () => {
   const { t } = useTranslation();
@@ -15,6 +15,7 @@ const RemoveChannel = () => {
   const handleClose = () => dispatch(hideModal());
 
   const { channelId } = useSelector(selectModalInfoExtra);
+  const currentChannelId = useSelector(selectCurrentChannelId);
   const mainChannelId = 1;
 
   const chatApi = useChatApi();
@@ -22,8 +23,11 @@ const RemoveChannel = () => {
     event.preventDefault();
     chatApi.removeChannel(channelId);
     handleClose();
-    dispatch(actions.setCurrentChannelId(mainChannelId));
     toast.success(t('toasts.remove'));
+
+    if (currentChannelId === channelId) {
+      dispatch(actions.setCurrentChannelId(mainChannelId));
+    }
   };
 
   return (

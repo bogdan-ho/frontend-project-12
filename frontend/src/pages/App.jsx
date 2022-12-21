@@ -16,6 +16,7 @@ import AuthProvider from './helpers/AuthProvider';
 import PrivateRoute from './helpers/PrivateRoute';
 import AuthButton from './helpers/AuthButton';
 import RollbarProvider from './helpers/RollbarProvider';
+import PublicRoute from './helpers/PublicRoute';
 
 const App = () => (
   <RollbarProvider>
@@ -41,8 +42,22 @@ const App = () => (
                       </PrivateRoute>
                     )}
                   />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/signup" element={<SignUpPage />} />
+                  <Route
+                    path="/login"
+                    element={(
+                      <PublicRoute>
+                        <LoginPage />
+                      </PublicRoute>
+                    )}
+                  />
+                  <Route
+                    path="/signup"
+                    element={(
+                      <PublicRoute>
+                        <SignUpPage />
+                      </PublicRoute>
+                    )}
+                  />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </BrowserRouter>

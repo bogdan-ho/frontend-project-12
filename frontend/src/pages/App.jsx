@@ -11,16 +11,16 @@ import ChatPage from './chatPage';
 import LoginPage from './loginPage';
 import SignUpPage from './signUpPage';
 import NotFoundPage from './notFoundPage';
-import SocketProvider from '../api';
 import AuthProvider from './helpers/AuthProvider';
 import PrivateRoute from './helpers/PrivateRoute';
 import AuthButton from './helpers/AuthButton';
 import RollbarProvider from './helpers/RollbarProvider';
 import PublicRoute from './helpers/PublicRoute';
+import ChatApiProvider from './helpers/ChatApiProvider';
 
 const App = () => (
   <RollbarProvider>
-    <SocketProvider>
+    <ChatApiProvider>
       <AuthProvider>
         <div className="h-100">
           <div className="h-100" id="chat">
@@ -66,7 +66,7 @@ const App = () => (
           </div>
         </div>
       </AuthProvider>
-    </SocketProvider>
+    </ChatApiProvider>
   </RollbarProvider>
 );
 

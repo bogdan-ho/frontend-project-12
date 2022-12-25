@@ -5,8 +5,8 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { useChatApi } from '../../../hooks';
 import { selectCurrentChannelId } from '../../../slices/channelsSlice';
+import { useChatApi } from '../../helpers/ChatApiProvider';
 
 const ChatForm = () => {
   const { t } = useTranslation();

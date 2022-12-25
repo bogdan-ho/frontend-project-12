@@ -1,87 +1,63 @@
 import { io } from 'socket.io-client';
-import React, { useMemo } from 'react';
 import { actions as messagesActions } from './slices/messagesSlice';
 import { actions as channelActions } from './slices/channelsSlice';
-import { ChatApiContext } from './contexts/index';
 
-const socket = io();
+import store from './slices/index';
 
-// messages
-const subscribeOnMessages = (dispatch) => {
-  socket.on('newMessage', (payload) => {
-    dispatch(messagesActions.addMessage(payload));
-  });
-};
-const unsubscribeMessages = () => {
-  socket.off('newMessage');
-};
+export const socket = io();
 
-const sendMessage = (body, currentChannelId, username) => {
-  socket.emit('newMessage', { body, channelId: currentChannelId, username });
-};
+const buildChatAPI = (socketInstance) => {
+  const subscribeOnMessages = () => {
+    socketInstance.on('newMessage', (payload) => {
+      store.dispatch(messagesActions.addMessage(payload));
+    });
+  };
 
-// channels
-const subscribeNewChannel = (dispatch) => {
-  socket.on('newChannel', (payload) => {
-    dispatch(channelActions.addChannel(payload));
-    dispatch(channelActions.setCurrentChannelId(payload.id));
-  });
-};
+  const sendMessage = (body, currentChannelId, username) => {
+    socketInstance.emit('newMessage', { body, channelId: currentChannelId, username });
+  };
 
-const unsubscribeNewChannel = () => {
-  socket.off('newChannel');
-};
+  const subscribeNewChannel = () => {
+    socketInstance.on('newChannel', (payload) => {
+      store.dispatch(channelActions.addChannel(payload));
+      store.dispatch(channelActions.setCurrentChannelId(payload.id));
+    });
+  };
 
-const subscribeRemoveChannel = (dispatch) => {
-  socket.on('removeChannel', (payload) => {
-    dispatch(channelActions.removeChannel(payload.id));
-  });
-};
+  const subscribeRemoveChannel = () => {
+    socketInstance.on('removeChannel', (payload) => {
+      store.dispatch(channelActions.removeChannel(payload.id));
+    });
+  };
 
-const unsubscribeRemoveChannel = () => {
-  socket.off('removeChannel');
-};
+  const createNewChannel = (name) => {
+    socketInstance.emit('newChannel', { name });
+  };
 
-const createNewChannel = (name) => {
-  socket.emit('newChannel', { name });
-};
+  const removeChannel = (id) => {
+    socketInstance.emit('removeChannel', { id });
+  };
 
-const removeChannel = (id) => {
-  socket.emit('removeChannel', { id });
-};
+  const subscribeRenameChannel = () => {
+    socketInstance.on('renameChannel', (payload) => {
+      store.dispatch(channelActions.updateChannel({ id: [payload.id], changes: payload }));
+    });
+  };
 
-const subscribeRenameChannel = (dispatch) => {
-  socket.on('renameChannel', (payload) => {
-    dispatch(channelActions.updateChannel({ id: [payload.id], changes: payload }));
-  });
-};
+  const renameChannel = (id, name) => {
+    socketInstance.emit('renameChannel', { id, name });
+  };
 
-const unsubscribeRenameChannel = () => {
-  socket.off('renameChannel');
-};
-
-const renameChannel = (id, name) => {
-  socket.emit('renameChannel', { id, name });
-};
-
-const ChatApiProvider = ({ children }) => (
-  <ChatApiContext.Provider value={useMemo(() => ({
+  return {
     subscribeOnMessages,
-    unsubscribeMessages,
     sendMessage,
     subscribeNewChannel,
-    unsubscribeNewChannel,
     subscribeRemoveChannel,
-    unsubscribeRemoveChannel,
     createNewChannel,
     removeChannel,
     subscribeRenameChannel,
-    unsubscribeRenameChannel,
     renameChannel,
-  }), [])}
-  >
-    {children}
-  </ChatApiContext.Provider>
-);
+  };
+};
 
-export default ChatApiProvider;
+export default buildChatAPI;

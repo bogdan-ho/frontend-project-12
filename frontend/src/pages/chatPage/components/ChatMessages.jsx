@@ -1,24 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
 
-import { useChatApi } from '../../../hooks';
 import { getCurrentChannelMessages } from '../../../slices/messagesSlice';
 
 const ChatMessages = () => {
   const currentChannelMessages = useSelector(getCurrentChannelMessages);
-
-  const chatApi = useChatApi();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    chatApi.subscribeOnMessages(dispatch);
-
-    return () => {
-      chatApi.unsubscribeMessages();
-    };
-  }, []);
 
   useEffect(() => {
     scroll.scrollToBottom({ containerId: 'messages-box', delay: 0, duration: 0 });

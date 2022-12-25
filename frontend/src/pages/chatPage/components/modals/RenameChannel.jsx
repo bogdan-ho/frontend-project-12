@@ -7,7 +7,7 @@ import leoProfanity from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
-import { useChatApi } from '../../../../hooks';
+import { useChatApi } from '../../../helpers/ChatApiProvider';
 import { hideModal, selectModalInfoExtra } from '../../../../slices/modalsSlice';
 import { channelsSelectors } from '../../../../slices/channelsSlice';
 

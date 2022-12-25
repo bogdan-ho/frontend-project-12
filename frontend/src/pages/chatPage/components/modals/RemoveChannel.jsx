@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import { useChatApi } from '../../../../hooks';
+import { useChatApi } from '../../../helpers/ChatApiProvider';
 import { hideModal, selectModalInfoExtra } from '../../../../slices/modalsSlice';
 import { actions, selectCurrentChannelId } from '../../../../slices/channelsSlice';
 

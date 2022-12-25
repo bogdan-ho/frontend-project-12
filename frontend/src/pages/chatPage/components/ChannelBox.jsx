@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ButtonGroup, Dropdown, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useChatApi } from '../../../hooks';
 import { actions, channelsSelectors, selectCurrentChannelId } from '../../../slices/channelsSlice';
 import { setActiveModal } from '../../../slices/modalsSlice';
 
@@ -16,19 +15,6 @@ const ChannelBox = () => {
 
   const dispatch = useDispatch();
   const setActiveChannel = (id) => dispatch(actions.setCurrentChannelId(id));
-  const chatApi = useChatApi();
-
-  useEffect(() => {
-    chatApi.subscribeNewChannel(dispatch);
-    chatApi.subscribeRemoveChannel(dispatch);
-    chatApi.subscribeRenameChannel(dispatch);
-
-    return () => {
-      chatApi.unsubscribeNewChannel();
-      chatApi.unsubscribeRemoveChannel();
-      chatApi.unsubscribeRenameChannel();
-    };
-  }, []);
 
   return (
     <ul className="nav flex-column nav-pills nav-fill px-2">

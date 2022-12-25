@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import leoProfanity from 'leo-profanity';
 
-import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
 import { channelsSelectors } from '../../../../slices/channelsSlice';
+import { useChatApi } from '../../../helpers/ChatApiProvider';
 
 const AddChannel = () => {
   const { t } = useTranslation();

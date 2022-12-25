@@ -9,7 +9,7 @@
 
 ## About
 Real-time React/Redux application using AJAX, REST, websockets, React (with hooks) + Redux (@redux/toolkit) + Formik.
-##### [Link on deployed project](https://frontend-project-12-production-2d70.up.railway.app/)
+#### [Link on deployed project](https://chat-app-zibj.onrender.com/)
 
 
 ## Getting Started

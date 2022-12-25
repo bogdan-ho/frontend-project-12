@@ -1,5 +1,10 @@
-import React, { useMemo, useState } from 'react';
-import { AuthContext } from '../../contexts';
+import React, {
+  useMemo, useState, createContext, useContext,
+} from 'react';
+
+const AuthContext = createContext({});
+
+export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('user'));

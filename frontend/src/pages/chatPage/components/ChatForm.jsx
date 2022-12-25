@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { useChatApi } from '../../../hooks';
-import { selectCurrentChannelId } from '../../../slices/selectors';
+import { selectCurrentChannelId } from '../../../slices/channelsSlice';
 
 const ChatForm = () => {
   const { t } = useTranslation();

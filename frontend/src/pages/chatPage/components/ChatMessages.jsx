@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
 
 import { useChatApi } from '../../../hooks';
-import { getCurrentChannelMessages } from '../../../slices/selectors';
+import { getCurrentChannelMessages } from '../../../slices/messagesSlice';
 
 const ChatMessages = () => {
   const currentChannelMessages = useSelector(getCurrentChannelMessages);

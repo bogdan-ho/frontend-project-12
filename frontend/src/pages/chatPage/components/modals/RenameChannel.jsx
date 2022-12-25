@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
 import { useChatApi } from '../../../../hooks';
-import { hideModal } from '../../../../slices/modalsSlice';
-import { channelsSelectors, selectModalInfoExtra } from '../../../../slices/selectors';
+import { hideModal, selectModalInfoExtra } from '../../../../slices/modalsSlice';
+import { channelsSelectors } from '../../../../slices/channelsSlice';
 
 const RenameChannel = () => {
   const { t } = useTranslation();

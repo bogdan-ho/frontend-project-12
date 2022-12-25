@@ -5,9 +5,8 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 import { useChatApi } from '../../../../hooks';
-import { hideModal } from '../../../../slices/modalsSlice';
-import { actions } from '../../../../slices/channelsSlice';
-import { selectModalInfoExtra, selectCurrentChannelId } from '../../../../slices/selectors';
+import { hideModal, selectModalInfoExtra } from '../../../../slices/modalsSlice';
+import { actions, selectCurrentChannelId } from '../../../../slices/channelsSlice';
 
 const RemoveChannel = () => {
   const { t } = useTranslation();

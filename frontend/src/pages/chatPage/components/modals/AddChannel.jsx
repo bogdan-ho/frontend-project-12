@@ -9,7 +9,7 @@ import leoProfanity from 'leo-profanity';
 
 import { useChatApi } from '../../../../hooks';
 import { hideModal } from '../../../../slices/modalsSlice';
-import { channelsSelectors } from '../../../../slices/selectors';
+import { channelsSelectors } from '../../../../slices/channelsSlice';
 
 const AddChannel = () => {
   const { t } = useTranslation();

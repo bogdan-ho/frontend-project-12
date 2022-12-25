@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import ChatForm from './ChatForm';
 import ChatMessages from './ChatMessages';
-import { messagesSelectors, channelsSelectors, selectCurrentChannelId } from '../../../slices/selectors';
+import { messagesSelectors } from '../../../slices/messagesSlice';
+import { channelsSelectors, selectCurrentChannelId } from '../../../slices/channelsSlice';
 
 const MessageBox = () => {
   const { t } = useTranslation();

@@ -6,12 +6,11 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import { setActiveModal } from '../../slices/modalsSlice';
+import { setActiveModal, selectModalInfo } from '../../slices/modalsSlice';
 import { fetchData } from '../../slices/channelsSlice';
 import ChannelBox from './components/ChannelBox';
 import MessageBox from './components/MessageBox';
 import getModal from './components/modals';
-import { selectModalInfo } from '../../slices/selectors';
 
 const renderModal = (modalInfo) => {
   if (!modalInfo.type) return null;

@@ -22,5 +22,8 @@ const modalsSlice = createSlice({
   },
 });
 
+export const selectModalInfo = (state) => state.modalInfo;
+export const selectModalInfoExtra = (state) => selectModalInfo(state).extra;
+
 export const { setActiveModal, hideModal } = modalsSlice.actions;
 export default modalsSlice.reducer;

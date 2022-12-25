@@ -40,9 +40,11 @@ const channelsSlice = createSlice({
         channelsAdapter.addMany(state, channels);
         state.currentChannelId = currentChannelId;
       })
-      .addCase(fetchData.rejected, () => {
-        localStorage.clear();
-        window.location.reload();
+      .addCase(fetchData.rejected, (action) => {
+        if (action.error.message === 'AxiosError: Request failed with status code 401') {
+          localStorage.removeItem('user');
+          window.location.reload();
+        }
       });
   },
 });

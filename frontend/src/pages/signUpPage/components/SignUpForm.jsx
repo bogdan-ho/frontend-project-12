@@ -25,9 +25,9 @@ const SignUpForm = () => {
   const { t } = useTranslation();
 
   const schema = yup.object().shape({
-    username: yup.string().required(t('errors.requiredField')).min(3, t('errors.minMaxLength')).max(20, t('errors.minMaxLength')),
-    password: yup.string().required(t('errors.requiredField')).min(6, t('errors.minPasswordLength')),
-    confirmPassword: yup.string().required(t('errors.requiredField')).oneOf([yup.ref('password')], t('errors.passwordsMustMatch')),
+    username: yup.string().required('errors.requiredField').min(3, 'errors.minMaxLength').max(20, 'errors.minMaxLength'),
+    password: yup.string().required('errors.requiredField').min(6, 'errors.minPasswordLength'),
+    confirmPassword: yup.string().required('errors.requiredField').oneOf([yup.ref('password')], 'errors.passwordsMustMatch'),
   });
 
   return (
@@ -88,7 +88,7 @@ const SignUpForm = () => {
                 isInvalid={errors.username && touched.username}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {errors.username}
+                {t(errors.username)}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
@@ -108,7 +108,7 @@ const SignUpForm = () => {
                 isInvalid={errors.password && touched.password}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {errors.password}
+                {t(errors.password)}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
@@ -128,7 +128,7 @@ const SignUpForm = () => {
                 isInvalid={errors.confirmPassword && touched.confirmPassword}
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {errors.confirmPassword}
+                {t(errors.confirmPassword)}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>

@@ -49,6 +49,7 @@ export default {
         enterMessage: 'Введите сообщение...',
         button: 'Отправить',
       },
+      loading: 'Загрузка ...',
     },
     authButton: {
       logIn: 'Войти',

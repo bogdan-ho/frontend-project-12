@@ -10,12 +10,14 @@ const initialState = channelsAdapter.getInitialState();
 
 export const fetchData = createAsyncThunk(
   'tasks/fetchData',
-  async () => {
+  async (setDataIsFetching) => {
     const user = JSON.parse(localStorage.getItem('user'));
     try {
       const res = await axios.get(routes.DataPath(), { headers: { Authorization: `Bearer ${user.token}` } });
+      setDataIsFetching(false);
       return res.data;
     } catch (err) {
+      setDataIsFetching(false);
       throw new Error(err);
     }
   },

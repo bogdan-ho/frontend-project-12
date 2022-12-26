@@ -40,7 +40,7 @@ const channelsSlice = createSlice({
         channelsAdapter.addMany(state, channels);
         state.currentChannelId = currentChannelId;
       })
-      .addCase(fetchData.rejected, (action) => {
+      .addCase(fetchData.rejected, (state, action) => {
         if (action.error.message === 'AxiosError: Request failed with status code 401') {
           localStorage.removeItem('user');
           window.location.reload();

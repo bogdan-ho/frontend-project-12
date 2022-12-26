@@ -20,7 +20,6 @@ const buildChatAPI = (socketInstance) => {
   const subscribeNewChannel = () => {
     socketInstance.on('newChannel', (payload) => {
       store.dispatch(channelActions.addChannel(payload));
-      store.dispatch(channelActions.setCurrentChannelId(payload.id));
     });
   };
 
@@ -31,7 +30,9 @@ const buildChatAPI = (socketInstance) => {
   };
 
   const createNewChannel = (name) => {
-    socketInstance.emit('newChannel', { name });
+    socketInstance.emit('newChannel', { name }, (responseData) => {
+      store.dispatch(channelActions.setCurrentChannelId(responseData.data.id));
+    });
   };
 
   const removeChannel = (id) => {

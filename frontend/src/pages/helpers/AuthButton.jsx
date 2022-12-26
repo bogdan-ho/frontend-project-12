@@ -9,7 +9,7 @@ const AuthButton = () => {
   const auth = useAuth();
 
   return (
-    auth.loggedIn
+    auth.loggedInfo
       ? <Button onClick={auth.logOut} as={Link} to="/login">{t('authButton.logOut')}</Button>
       : null
   );

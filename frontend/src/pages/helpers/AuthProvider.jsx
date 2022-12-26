@@ -7,15 +7,15 @@ const AuthContext = createContext({});
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('user'));
+  const [loggedInfo, setLoggedInfo] = useState(localStorage.getItem('user'));
 
-  const logIn = () => setLoggedIn(true);
+  const logIn = () => setLoggedInfo(localStorage.getItem('user'));
   const logOut = () => {
     localStorage.removeItem('user');
-    setLoggedIn(false);
+    setLoggedInfo(null);
   };
 
-  const authState = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn]);
+  const authState = useMemo(() => ({ loggedInfo, logIn, logOut }), [loggedInfo]);
 
   return (
     <AuthContext.Provider value={authState}>

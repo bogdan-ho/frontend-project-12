@@ -1,10 +1,13 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from './AuthProvider';
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
+  const auth = useAuth();
+
   return (
-    localStorage.getItem('user') ? children : <Navigate to="/login" state={{ from: location }} />
+    auth.loggedInfo ? children : <Navigate to="/login" state={{ from: location }} />
   );
 };
 

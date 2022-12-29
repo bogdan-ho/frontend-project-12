@@ -49,6 +49,11 @@ const buildChatAPI = (socketInstance) => {
     socketInstance.emit('renameChannel', { id, name });
   };
 
+  subscribeOnMessages();
+  subscribeNewChannel();
+  subscribeRemoveChannel();
+  subscribeRenameChannel();
+
   return {
     subscribeOnMessages,
     sendMessage,

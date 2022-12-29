@@ -25,7 +25,7 @@ const MessageBox = () => {
         <p className="m-0">
           <b>{`# ${currentChannelName}`}</b>
         </p>
-        <span className="text-muted">{`${messages.length}${t('chatPage.messageBox.messages')}`}</span>
+        <span className="text-muted">{`${messages.length}${t('chatPage.messageBox.messages', { count: messages.length })}`}</span>
       </div>
       <ChatMessages />
       <ChatForm />

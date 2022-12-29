@@ -43,7 +43,11 @@ export default {
         rename: 'Переименовать',
       },
       messageBox: {
-        messages: ' сообщений',
+        messages_zero: ' сообщений',
+        messages_one: ' сообщение',
+        messages_two: ' сообщения',
+        messages_few: ' сообщения',
+        messages_many: ' сообщений',
       },
       form: {
         enterMessage: 'Введите сообщение...',

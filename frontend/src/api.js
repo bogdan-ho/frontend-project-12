@@ -1,10 +1,7 @@
-import { io } from 'socket.io-client';
 import { actions as messagesActions } from './slices/messagesSlice';
 import { actions as channelActions } from './slices/channelsSlice';
 
 import store from './slices/index';
-
-export const socket = io();
 
 const buildChatAPI = (socketInstance) => {
   const subscribeOnMessages = () => {

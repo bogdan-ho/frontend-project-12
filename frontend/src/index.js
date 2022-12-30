@@ -1,17 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import App from './pages/App.jsx';
 import init from './init.js';
-import initLeoProfanity from './profanity.js';
-import store from './slices/index';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-init();
-initLeoProfanity();
+const app = async () => {
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(await init());
+};
 
-root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-);
+app();

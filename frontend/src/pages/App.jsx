@@ -16,57 +16,54 @@ import PrivateRoute from './helpers/PrivateRoute';
 import AuthButton from './helpers/AuthButton';
 import RollbarProvider from './helpers/RollbarProvider';
 import PublicRoute from './helpers/PublicRoute';
-import ChatApiProvider from './helpers/ChatApiProvider';
 
 const App = () => (
   <RollbarProvider>
-    <ChatApiProvider>
-      <AuthProvider>
-        <div className="h-100">
-          <div className="h-100" id="chat">
-            <div className="d-flex flex-column h-100">
-              <BrowserRouter>
-                <Navbar className="shadow-sm bg-white">
-                  <Container>
-                    <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
-                    <AuthButton />
-                  </Container>
-                </Navbar>
+    <AuthProvider>
+      <div className="h-100">
+        <div className="h-100" id="chat">
+          <div className="d-flex flex-column h-100">
+            <BrowserRouter>
+              <Navbar className="shadow-sm bg-white">
+                <Container>
+                  <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
+                  <AuthButton />
+                </Container>
+              </Navbar>
 
-                <Routes>
-                  <Route
-                    path="/"
-                    element={(
-                      <PrivateRoute>
-                        <ChatPage />
-                      </PrivateRoute>
+              <Routes>
+                <Route
+                  path="/"
+                  element={(
+                    <PrivateRoute>
+                      <ChatPage />
+                    </PrivateRoute>
                     )}
-                  />
-                  <Route
-                    path="/login"
-                    element={(
-                      <PublicRoute>
-                        <LoginPage />
-                      </PublicRoute>
+                />
+                <Route
+                  path="/login"
+                  element={(
+                    <PublicRoute>
+                      <LoginPage />
+                    </PublicRoute>
                     )}
-                  />
-                  <Route
-                    path="/signup"
-                    element={(
-                      <PublicRoute>
-                        <SignUpPage />
-                      </PublicRoute>
+                />
+                <Route
+                  path="/signup"
+                  element={(
+                    <PublicRoute>
+                      <SignUpPage />
+                    </PublicRoute>
                     )}
-                  />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-              </BrowserRouter>
-            </div>
-            <ToastContainer />
+                />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </BrowserRouter>
           </div>
+          <ToastContainer />
         </div>
-      </AuthProvider>
-    </ChatApiProvider>
+      </div>
+    </AuthProvider>
   </RollbarProvider>
 );
 

@@ -1,25 +1,25 @@
 import React, {
   useMemo, createContext, useContext,
 } from 'react';
-import buildChatAPI, { socket } from '../../api';
 
 const ChatApiContext = createContext({});
 
 export const useChatApi = () => useContext(ChatApiContext);
-const {
-  sendMessage,
-  createNewChannel,
-  removeChannel,
-  renameChannel,
-} = buildChatAPI(socket);
 
-const ChatApiProvider = ({ children }) => (
-  <ChatApiContext.Provider value={useMemo(() => ({
+const ChatApiProvider = ({ children, value }) => {
+  const {
     createNewChannel, removeChannel, renameChannel, sendMessage,
-  }), [])}
-  >
-    {children}
-  </ChatApiContext.Provider>
-);
+  } = value;
+
+  const chatApiFunctions = useMemo(() => ({
+    createNewChannel, removeChannel, renameChannel, sendMessage,
+  }), [createNewChannel, removeChannel, renameChannel, sendMessage]);
+
+  return (
+    <ChatApiContext.Provider value={chatApiFunctions}>
+      {children}
+    </ChatApiContext.Provider>
+  );
+};
 
 export default ChatApiProvider;
